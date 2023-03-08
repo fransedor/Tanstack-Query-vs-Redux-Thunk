@@ -7,7 +7,7 @@ export const getPokemonData = () =>
         .get("https://pokeapi.co/api/v2/pokemon/")
         .then((res) => resolve(res.data))
         .catch((err) => reject(err));
-    }, 2000)
+    }, 1000)
   );
 
 export const invalidGetPokemonData = () =>
@@ -17,5 +17,5 @@ export const invalidGetPokemonData = () =>
         .get("https://pokeapi.co/api/v2/pokemooo/")
         .then((res) => resolve(res.data))
         .catch((err) => reject(err));
-    }, 2000)
+    }, 1000)
   );
