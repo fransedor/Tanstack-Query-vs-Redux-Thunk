@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 export const getPokemonData = () =>
   new Promise((resolve, reject) =>
@@ -6,7 +6,7 @@ export const getPokemonData = () =>
       axios
         .get("https://pokeapi.co/api/v2/pokemon/")
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err));
+        .catch((err) => reject(err as AxiosError));
     }, 1000)
   );
 
@@ -16,7 +16,7 @@ export const invalidGetPokemonData = () =>
       axios
         .get("https://pokeapi.co/api/v2/pokemooo/")
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err));
+        .catch((err) => reject(err as AxiosError));
     }, 1000)
   );
 
