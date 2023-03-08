@@ -19,3 +19,13 @@ export const invalidGetPokemonData = () =>
         .catch((err) => reject(err));
     }, 1000)
   );
+
+export const getSpecificPokemon = (pokemonName: string) =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => {
+      axios
+        .get("https://pokeapi.co/api/v2/pokemon/" + pokemonName)
+        .then((res) => resolve(res.data))
+        .catch((err) => reject(err));
+    }, 1000)
+  );
