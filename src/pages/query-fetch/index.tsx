@@ -1,22 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { ReactNode } from "react";
 import { getPokemonData } from "../service/fetch";
 
 const QueryFetch = () => {
-  const { data, status, error, refetch } = useQuery({
+  const { data, status, error, refetch, isFetching } = useQuery({
     queryKey: ["getAllPokemon"],
     queryFn: getPokemonData,
     enabled: false,
+		retry: 2, 
   });
+
   return (
     <>
       <h1 className="mb-40">Query Fetch</h1>
       <div className="flex gap-40">
         <div className="flex flex-col gap-8 items-center">
           <h1>Try and fetch some pokemon data!</h1>
-          <button className="w-40" onClick={() => refetch()}>Fetch</button>
-					{status === "loading" ? "Loading..." : status === "error" ? <p>{error as any}</p> : (
-						<p>{JSON.stringify(data, null, 2)}</p>
+          <button className="w-40" onClick={() => refetch()}>
+            Fetch
+          </button>
+          { isFetching ? (
+						"Loading..."
+					): status === "error" ? (
+						<p>{(error as Error).message}</p>
+					): (
+						<p>{data?.count}</p>
 					)}
         </div>
         <div className="flex flex-col gap-8 items-center">

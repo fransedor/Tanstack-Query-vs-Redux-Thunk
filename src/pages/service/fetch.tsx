@@ -1,17 +1,22 @@
 import axios, { AxiosError } from "axios";
 
 export const getPokemonData = () =>
-  new Promise((resolve, reject) =>
+  new Promise<any>((resolve, reject) =>
     setTimeout(() => {
       axios
-        .get("https://pokeapi.co/api/v2/pokemon/")
+        .get("https://pokeapi.co/api/v2/pokemoo/")
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err as AxiosError));
+        .catch((err) => {
+          if (err instanceof Error) {
+            reject(err);
+          }
+          reject(new Error("error get pokemon data"));
+        });
     }, 1000)
   );
 
 export const invalidGetPokemonData = () =>
-  new Promise((resolve, reject) =>
+  new Promise<any>((resolve, reject) =>
     setTimeout(() => {
       axios
         .get("https://pokeapi.co/api/v2/pokemooo/")
