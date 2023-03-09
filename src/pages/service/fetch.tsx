@@ -26,7 +26,7 @@ export const invalidGetPokemonData = () =>
   );
 
 export const getSpecificPokemon = (pokemonName: string) =>
-  new Promise((resolve, reject) =>
+  new Promise<any>((resolve, reject) =>
     setTimeout(() => {
       axios
         .get("https://pokeapi.co/api/v2/pokemon/" + pokemonName)
