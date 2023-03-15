@@ -10,30 +10,23 @@ const NormalFetch = () => {
   const [errorGetSpecificPokemon, setErrorGetSpecificPokemon] = useState<any>(undefined);
   const [isLoadingSpecificPokemon, setIsLoadingSpecificPokemon] = useState(false);
 
-  const fetchAllPokemonHandler = async () => {
+  const fetchAllPokemonHandler = async (validFetch: boolean) => {
     setIsLoadingGetAllPokemon(true);
     try {
-      const pokemonData = await getPokemonData();
+      let newPokemonData
+			if (validFetch) {
+				newPokemonData = await getPokemonData()
+			} else {
+				newPokemonData = await invalidGetPokemonData();
+			}
       setErrorGetAllPokemon(false);
-      setPokemonData(pokemonData);
+      setPokemonData(newPokemonData);
     } catch (err) {
       setErrorGetAllPokemon(err);
     }
     setIsLoadingGetAllPokemon(false);
   };
 
-  const invalidFetchHandler = async () => {
-    setIsLoadingGetAllPokemon(true);
-    try {
-      const pokemonData = await invalidGetPokemonData();
-      setErrorGetAllPokemon(false);
-      setPokemonData(pokemonData);
-    } catch (err) {
-      console.log(err);
-      setErrorGetAllPokemon(err);
-    }
-    setIsLoadingGetAllPokemon(false);
-  };
 
   const fetchSpecificPokemon = async () => {
     setIsLoadingSpecificPokemon(true);
@@ -53,10 +46,10 @@ const NormalFetch = () => {
       <div className="flex gap-40">
         <div className="flex flex-col gap-8 items-center flex-shrink">
           <h1>Try and fetch some pokemon data!</h1>
-          <button className="w-40" onClick={fetchAllPokemonHandler}>
+          <button className="w-40" onClick={() => fetchAllPokemonHandler(true)}>
             Fetch
           </button>
-          <button className="w-40" onClick={invalidFetchHandler}>
+          <button className="w-40" onClick={() => fetchAllPokemonHandler(false)}>
             Invalid Fetch
           </button>
           {isLoadingGetAllPokemon && <p>Loading...</p>}
